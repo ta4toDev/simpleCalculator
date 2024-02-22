@@ -1,41 +1,43 @@
 import java.util.Scanner;
+import java.math.BigDecimal;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Geben Sie die erste Zahl: ");
-        int num1 = scanner.nextInt();
-        System.out.println("Geben Sie die zweite Zahl: ");
-        int num2 = scanner.nextInt();
-        int res;
-        System.out.println(" Geben Sie Aktion: ");
+
+        System.out.println("Geben Sie die erste Zahl ein: ");
+        BigDecimal num1 = new BigDecimal(scanner.nextLine());
+
+        System.out.println("Geben Sie die zweite Zahl ein: ");
+        BigDecimal num2 = new BigDecimal(scanner.nextLine());
+
+        System.out.println("Geben Sie die Aktion ein: ");
         String action = scanner.nextLine();
-        action = scanner.nextLine();
+
+        BigDecimal res;
         switch (action) {
             case "+":
-                res = num1 + num2;
-                System.out.println("Resultat: " + res);
+                res = num1.add(num2);
                 break;
             case "-":
-                res = num1 - num2;
-                System.out.println("Resultat: " + res);
+                res = num1.subtract(num2);
                 break;
             case "*":
-                res = num1 * num2;
-                System.out.println("Resultat: " + res);
+                res = num1.multiply(num2);
                 break;
             case "/":
-                if (num2 == 0)
-                    System.out.println("Error");
-                else {
-                    res = num1 / num2;
-                    System.out.println("Resultat: " + res);
+                try {
+                    res = num1.divide(num2);
+                } catch (ArithmeticException e) {
+                    System.out.println("Error: Division durch Null oder das Ergebbnis ist eine unendliche Dezimalzahl.");
+                    return;
                 }
                 break;
             default:
                 System.out.println("Falsche Eingabe");
+                return;
         }
+
+        System.out.println("Resultat: " + res);
     }
 }
