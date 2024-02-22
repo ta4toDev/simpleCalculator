@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,11 +27,11 @@ public class Main {
                 res = num1.multiply(num2);
                 break;
             case "/":
-                try {
-                    res = num1.divide(num2);
-                } catch (ArithmeticException e) {
-                    System.out.println("Error: Division durch Null oder das Ergebbnis ist eine unendliche Dezimalzahl.");
+                if (num2.compareTo(BigDecimal.ZERO) == 0) {
+                    System.out.println("Error: Division durch Null ist nicht erlaubt.");
                     return;
+                } else {
+                    res = num1.divide(num2, 2, RoundingMode.HALF_UP); // Skala auf 2 Dezimalstellen, Rundungsmodus HALF_UP
                 }
                 break;
             default:
@@ -38,6 +39,6 @@ public class Main {
                 return;
         }
 
-        System.out.println("Resultat: " + res);
+        System.out.println("Ergebnis: " + res);
     }
 }
